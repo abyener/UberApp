@@ -8,6 +8,7 @@ import NavOptions from "../components/NavOptions";
 import logo from "../assets/images/home/logo.png";
 import { useDispatch } from "react-redux";
 
+console.log(GOOGLE_MAPS_APIKEY);
 const HomeScreen = () => {
   return (
     <SafeAreaView style={tw`bg-white h-full`}>
