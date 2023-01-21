@@ -1,11 +1,26 @@
 import React from "react";
 import { Text, View } from "react-native";
 import tw from "tailwind-react-native-classnames";
+import Map from "../components/Map";
+import { createStackNavigator } from "@react-navigation/stack";
+import NavigateCard from "../components/NavigateCard";
 
 const MapScreen = () => {
+  const Stack = createStackNavigator();
   return (
-    <View style={tw`p-5`}>
-      <Text>Map Screen</Text>
+    <View>
+      <View style={tw`h-1/2`}>
+        <Map />
+      </View>
+      <View style={tw`h-1/2`}>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="NavigateCard"
+            component={NavigateCard}
+            options={{ header: false }}
+          />
+        </Stack.Navigator>
+      </View>
     </View>
   );
 };
