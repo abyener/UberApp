@@ -9,7 +9,6 @@ import logo from "../assets/images/home/logo.png";
 import { useDispatch } from "react-redux";
 import { setDestination, setOrigin } from "../slices/navSlice";
 
-console.log(GOOGLE_MAPS_APIKEY);
 const HomeScreen = () => {
   const dispatch = useDispatch();
   return (
