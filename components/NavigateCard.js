@@ -20,7 +20,7 @@ const NavigateCard = () => {
           <GooglePlacesAutocomplete
             placeholder="Where to?"
             styles={toInputBoxStyles}
-            fetchDetails={false}
+            fetchDetails={true}
             returnKeyType={"search"}
             minLength={2}
             onPress={(data, details = null) => {
