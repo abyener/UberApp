@@ -14,6 +14,8 @@ import { FlatList } from "react-native-gesture-handler";
 import UberX from "../assets/images/rideOptions/UberX.webp";
 import UberXL from "../assets/images/rideOptions/UberXL.webp";
 import UberLux from "../assets/images/rideOptions/UberLux.webp";
+import { useSelector } from "react-redux";
+import { selectTimeTravelInformation } from "../slices/navSlice";
 
 const RideOptionsCard = () => {
   const data = [
@@ -39,6 +41,8 @@ const RideOptionsCard = () => {
 
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
+  const travelTimeInformation = useSelector(selectTimeTravelInformation);
+
   return (
     <SafeAreaView style={tw`bg-white flex-grow`}>
       <View>
@@ -48,7 +52,9 @@ const RideOptionsCard = () => {
         >
           <Icon name="chevron-left" type="fontawesome" />
         </TouchableOpacity>
-        <Text style={tw`text-center py-5 text-xl`}>Select a Ride</Text>
+        <Text style={tw`text-center py-5 text-xl`}>
+          Select a Ride - {travelTimeInformation?.distance.text}
+        </Text>
       </View>
       <FlatList
         data={data}
@@ -70,7 +76,7 @@ const RideOptionsCard = () => {
             />
             <View style={tw`-ml-6`}>
               <Text style={tw`text-xl font-semibold `}>{title} </Text>
-              <Text>Travel time...</Text>
+              <Text>{travelTimeInformation.duration.text} Travel Time </Text>
             </View>
             <Text style={tw`text-xl`}>99 TL</Text>
           </TouchableOpacity>
