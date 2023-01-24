@@ -17,28 +17,30 @@ import UberLux from "../assets/images/rideOptions/UberLux.webp";
 import { useSelector } from "react-redux";
 import { selectTimeTravelInformation } from "../slices/navSlice";
 
-const RideOptionsCard = () => {
-  const data = [
-    {
-      id: "Uber-X-123",
-      title: "UberX",
-      multiplier: 1,
-      image: UberX,
-    },
-    {
-      id: "Uber-XL-456",
-      title: "Uber XL",
-      multiplier: 1.2,
-      image: UberXL,
-    },
-    {
-      id: "Uber-X-456",
-      title: "Uber LUX",
-      multiplier: 1.75,
-      image: UberLux,
-    },
-  ];
+const data = [
+  {
+    id: "Uber-X-123",
+    title: "UberX",
+    multiplier: 1,
+    image: UberX,
+  },
+  {
+    id: "Uber-XL-456",
+    title: "Uber XL",
+    multiplier: 1.2,
+    image: UberXL,
+  },
+  {
+    id: "Uber-X-456",
+    title: "Uber LUX",
+    multiplier: 1.75,
+    image: UberLux,
+  },
+];
 
+const SURGE_CHARGE_RATE = 1.5;
+
+const RideOptionsCard = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
   const travelTimeInformation = useSelector(selectTimeTravelInformation);
@@ -53,7 +55,7 @@ const RideOptionsCard = () => {
           <Icon name="chevron-left" type="fontawesome" />
         </TouchableOpacity>
         <Text style={tw`text-center py-5 text-xl`}>
-          Select a Ride - {travelTimeInformation?.distance.text}
+          Select a Ride - {travelTimeInformation?.distance?.text}
         </Text>
       </View>
       <FlatList
@@ -76,13 +78,25 @@ const RideOptionsCard = () => {
             />
             <View style={tw`-ml-6`}>
               <Text style={tw`text-xl font-semibold `}>{title} </Text>
-              <Text>{travelTimeInformation.duration.text} Travel Time </Text>
+              <Text>
+                {travelTimeInformation?.duration?.text} Seyahat süresi
+              </Text>
             </View>
-            <Text style={tw`text-xl`}>99 TL</Text>
+            <Text style={tw`text-xl`}>
+              {new Intl.NumberFormat("tr-TR", {
+                style: "currency",
+                currency: "TRY",
+              }).format(
+                (travelTimeInformation?.duration.value *
+                  SURGE_CHARGE_RATE *
+                  multiplier) /
+                  100
+              )}
+            </Text>
           </TouchableOpacity>
         )}
       />
-      <View>
+      <View style={tw`mt-auto border-t border-gray-200`}>
         <TouchableOpacity
           disabled={!selected}
           style={tw`bg-black py-3 m-3 ${!selected && "bg-gray-300"}`}
